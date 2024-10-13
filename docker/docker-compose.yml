@@ -1,0 +1,8 @@
+name: scaleEngine
+services:
+  nginx:
+    build:
+      context: "../docker/ngnix/"
+      dockerfile: ./Dockerfile
+    ports:
+      - "8080:8080"
