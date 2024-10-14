@@ -2,7 +2,7 @@ name: scaleEngine
 services:
   nginx:
     build:
-      context: "../docker/ngnix/"
+      context: "nginx/"
       dockerfile: ./Dockerfile
     ports:
       - "8080:8080"
