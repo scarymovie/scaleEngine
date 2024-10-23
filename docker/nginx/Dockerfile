@@ -15,18 +15,13 @@ RUN set -ex \
         curl \
         ca-certificates \
     && update-ca-certificates \
-#    && useradd nginx \
-#    && groupadd nginx www-data
-
-RUN echo "http://nginx.org/packages/alpine/v$(egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release)/main" >> /etc/apk/repositories
-
-RUN curl -o /tmp/nginx_signing.rsa.pub https://nginx.org/keys/nginx_signing.rsa.pub
-
-RUN apk add --no-cache nginx \
-    # Prepare www dir
+    && addgroup -S www-data || true \
+    && adduser -S -G www-data nginx \
+    && curl -o /tmp/nginx_signing.rsa.pub https://nginx.org/keys/nginx_signing.rsa.pub \
+    && apk add --no-cache nginx \
     && mkdir -p "$NGINX_WWW_DIR" \
-    && cp /usr/share/nginx/html/ "$NGINX_WWW_DIR/" \
-    && chown -R nginx:www-data "$NGINX_WWW_DIR"
+    && chown -R nginx:www-data "$NGINX_WWW_DIR" \
+    && rm -rf /var/cache/apk/*
 
 EXPOSE $NGINX_PORT
 
