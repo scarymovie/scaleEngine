@@ -2,7 +2,7 @@
 FROM alpine:3.20
 
 ENV NGINX_ETC_DIR=/etc/nginx \
-    NGINX_WWW_DIR=/var/www \
+    NGINX_WWW_DIR=/var/www/public \
     NGINX_PORT=8080
 
 COPY nginx.conf $NGINX_ETC_DIR/nginx.conf
