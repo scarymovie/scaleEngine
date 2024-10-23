@@ -20,8 +20,6 @@ RUN set -ex \
 
 RUN echo "http://nginx.org/packages/alpine/v$(egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release)/main" >> /etc/apk/repositories
 
-RUN echo "http://nginx.org/packages/mainline/alpine/v$(egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release)/main" \ >> /etc/apk/repositories
-
 RUN curl -o /tmp/nginx_signing.rsa.pub https://nginx.org/keys/nginx_signing.rsa.pub
 
 RUN apk add --no-cache nginx \
