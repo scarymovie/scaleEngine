@@ -3,10 +3,14 @@ FROM alpine:3.20
 
 ENV NGINX_ETC_DIR=/etc/nginx \
     NGINX_WWW_DIR=/var/www/public \
-    NGINX_PORT=8080
+    NGINX_PORT=8080 \
+    ENTRYPOINT_DIR=/usr/local/bin
 
 COPY nginx.conf $NGINX_ETC_DIR/nginx.conf
 COPY index.html $NGINX_WWW_DIR/index.html
+COPY entrypoint.sh $ENTRYPOINT_DIR/entrypoint.sh
+
+RUN chmod +x $ENTRYPOINT_DIR/entrypoint.sh
 
 RUN set -ex \
     && apk update \
@@ -25,4 +29,4 @@ RUN set -ex \
 
 EXPOSE $NGINX_PORT
 
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
