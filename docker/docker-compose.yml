@@ -1,4 +1,4 @@
-name: scaleEngine
+name: scale-engine
 services:
   nginx:
     build:
@@ -6,3 +6,4 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "8081:8080"
+      - "443:443"
